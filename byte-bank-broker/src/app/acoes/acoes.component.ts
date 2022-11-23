@@ -8,20 +8,9 @@ import { Subscription } from "rxjs";
     templateUrl: "./acoes.component.html",
     styleUrls: ["./acoes.component.css"],
 })
-export class AcoesComponent implements OnInit, OnDestroy {
-    private subscription: Subscription;
+export class AcoesComponent {
     acoesInput = new FormControl();
-    acoes: Acoes;
+    acoes$ = this._acoesService.getAcoes();
 
     constructor(private _acoesService: AcoesService) {}
-
-    ngOnInit(): void {
-        this.subscription = this._acoesService.getAcoes().subscribe((acoes) => {
-            this.acoes = acoes;
-        });
-    }
-
-    ngOnDestroy(): void {
-        this.subscription.unsubscribe();
-    }
 }
