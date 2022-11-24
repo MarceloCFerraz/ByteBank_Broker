@@ -41,6 +41,13 @@ export class AcoesService {
              * dar prosseguimento no fluxo de dados do observable. Muito bom de ser
              * utilizado em campos de pesquisa para evitar várias requisições des-
              * necessárias em casos onde o usuário digita muito rápido.
+             * @filter => utilizado para condicionar o prosseguimento do fluxo da
+             * informação de acordo com algum requisito. Nesse caso, foi definido que
+             * a requisição só deveria ser realizada se o valor digitado no campo de
+             * pesquisa tivesse pelo menos caracteres
+             * @distinctUntilChanged => utilizado para impedir o prosseguimento do
+             * fluxo de dados em casos onde o valor atual é o mesmo do valor anterior,
+             * poupando uma requição desnecessária.
              */
             pluck("payload"),
             map((acoes) =>
