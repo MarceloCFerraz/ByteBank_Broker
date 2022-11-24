@@ -1,8 +1,17 @@
 import { Component } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { merge } from "rxjs";
-import { debounceTime, switchMap, tap } from "rxjs/operators";
+import {
+    debounceTime,
+    distinctUntilChanged,
+    filter,
+    switchMap,
+    tap,
+} from "rxjs/operators";
 import { AcoesService } from "./acoes.service";
+
+const TYPING_WAIT_TIME: number = 300;
+
 @Component({
     selector: "app-acoes",
     templateUrl: "./acoes.component.html",
@@ -16,10 +25,16 @@ export class AcoesComponent {
         })
     );
     acoesInput$ = this.acoesInput.valueChanges.pipe(
-        debounceTime(200),
-        tap(() => {
+        debounceTime(TYPING_WAIT_TIME),
+        tap((valorDigitado) => {
             console.log("Fluxo Filtro");
+            console.log(valorDigitado);
         }),
+        filter(
+            (valorDigitado) =>
+                valorDigitado.length >= 3 || !valorDigitado.length
+        ),
+        distinctUntilChanged(),
         switchMap((valorDigitado) =>
             this._acoesService.getAcoes(valorDigitado)
         ),

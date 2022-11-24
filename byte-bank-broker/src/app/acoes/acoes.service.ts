@@ -36,10 +36,11 @@ export class AcoesService {
              * em acoes.component.ts para pegar o texto que estava sendo digitado no campo
              * de pesquisa e enviar uma requisição com o valor digitado capturando todas
              * as ações que possuem o texto digitado
+             * @filter =>
              * @debounceTime => utilizado para adicionar delay em milissegundos para
-             * dar prosseguimento no fluxo de dados. Muito bom de ser utilizado em
-             * campos de pesquisa para evitar várias requisições desnecessárias em
-             * casos onde o usuário digita muito rápido.
+             * dar prosseguimento no fluxo de dados do observable. Muito bom de ser
+             * utilizado em campos de pesquisa para evitar várias requisições des-
+             * necessárias em casos onde o usuário digita muito rápido.
              */
             pluck("payload"),
             map((acoes) =>
